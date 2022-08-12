@@ -1,5 +1,6 @@
 import Header from './components/Header'
 import Tasks from './components/Tasks'
+import AddTask from './components/AddTask'
 import { useState } from 'react'
 
 function App() {
@@ -8,22 +9,32 @@ function App() {
         {
             id: 1,
             text: 'Doctors Apointment',
-            day: 'Dec 5th at 2:30pm',
+            day: '2022-12-05T14:30',
             reminder: true,
         },
         {
             id: 2,
             text: 'Meeting at School',
-            day: 'Dec 6th at 1:30pm',
+            day: '2022-12-06T13:30',
             reminder: true,
         },
         {
             id: 3,
             text: 'Food Shooping',
-            day: 'Dec 5th at 4:30pm',
+            day: '2022-12-08T16:30',
             reminder: false,
         }
     ])
+
+    const addTask = (task) => {
+
+        const id = Math.floor(Math.random() * 10000) + 1
+
+        const newTask = {id, ...task}
+
+        setTasks([...tasks, newTask])
+
+    }
 
     const deleteTask = (id) => {
         setTasks(tasks.filter((task) => task.id !== id))
@@ -38,6 +49,7 @@ function App() {
 	return (
 		<div className="container">
 			<Header title='Task Tracker'/>
+            <AddTask onAdd={addTask}/>
             <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/>
 		</div>
 	);
