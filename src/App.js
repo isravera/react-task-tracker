@@ -5,6 +5,8 @@ import { useState } from 'react'
 
 function App() {
 
+    const [toggleForm, setToggleForm] = useState(false)
+
     const [tasks, setTasks] = useState([
         {
             id: 1,
@@ -48,8 +50,8 @@ function App() {
 
 	return (
 		<div className="container">
-			<Header title='Task Tracker'/>
-            <AddTask onAdd={addTask}/>
+			<Header title='Task Tracker' show={toggleForm} toggleForm={() => setToggleForm(!toggleForm)}/>
+            { toggleForm && <AddTask onAdd={addTask}/> }
             <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/>
 		</div>
 	);
